@@ -1,0 +1,73 @@
+//- Row with 1 column as default
+mixin row
+  -columns = attributes.columns || 1;
+  -verticalAlign = attributes.verticalAlign || "top";
+  -var innerClass = attributes.innerClass || "";
+
+  //- Console warnings
+  -if(columns > 1 && (innerClass)){ console.log(("InnerClass").cyan + (" attribute not used in row mixin with multiple columns").yellow) };
+  -if(!(verticalAlign == "top" || verticalAlign == "middle" || verticalAlign == "bottom")){ console.log(("VerticalAlign").cyan + (" attribute contains an invalid value").red) };
+
+  //- Single column row and multiple column row have different structures
+  tr: td(class="row row#{columns}Column", class=attributes.class, id=attributes.id)
+    if columns == 1
+      table(width="100%", cellpadding="0", cellspacing="0", border="0").contents
+        +columnRow(innerClass=innerClass)
+          block
+    else
+      <!--[if (gte mso 9)|(IE)]>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+      <td width="#{maxWidth / columns}" valign="#{verticalAlign}">
+      <![endif]-->
+      block
+      <!--[if (gte mso 9)|(IE)]>
+      </td>
+      </tr>
+      </table>
+      <![endif]-->
+
+//- Column seperator with 2 columns as default
+mixin columnSeperator
+  -if(!columns || columns < 1 || columns > 4){ console.log(("A ").red + ("columnSeperator").cyan + (" mixin does not have a valid amount of columns").red) };
+
+  <!--[if (gte mso 9)|(IE)]>
+  </td>
+  <td width="#{maxWidth / columns}" valign="#{verticalAlign}">
+  <![endif]-->
+
+mixin column
+  -var multipleRows = attributes.multipleRows || false;
+  -var align = attributes.align || "left";
+
+  table(cellpadding="0", cellspacing="0", border="0", class=attributes.class, id=attributes.id, style="vertical-align: #{verticalAlign};").column
+    tr: td(class=attributes.innerClass)
+      table(cellpadding="0", cellspacing="0", border="0").contents   
+          if !multipleRows
+            +columnRow(align=align)
+              block
+          else
+            block
+
+//- Row inside a column
+mixin columnRow
+  -var align = attributes.align || "left";
+
+  //- Console warnings
+  -if(attributes.class){ console.log(("Class").cyan + (" attribute not used in columnRow mixin, use innerClass instead").yellow) };
+  -if(!(align == "left" || align == "center" || align == "right")){ console.log(("Align").cyan + (" attribute contains an invalid value").red) };
+
+
+  tr: td(align=align, class=attributes.innerClass, id=attributes.id)
+    block
+
+//- Full width image row
+mixin rowFullWidthImg(src, alt)
+  -var url = attributes.link;
+
+  tr: td
+    if url
+      +link(url)
+        +img(src, alt, maxWidth)
+    else
+      +img(src, alt, maxWidth)

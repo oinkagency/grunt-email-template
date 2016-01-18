@@ -1,0 +1,21 @@
+extends ../layouts/content
+
+//- Variables that differ on the language specific level
+block languageVars
+  -language = "english";
+
+  //- Title and description for johnson box and meta description
+  //-title = ""; //- Maximum of 70 characters
+  //-description = ""; //- Maximum of 160 characters
+
+  //- Link variables
+  -var linkMain = "http://oink.agency";
+  -var linkHeader = linkMain;
+
+  //- Alt attribute variables
+  -var altHeader = "Header image";
+  -var altExample = "Example";
+
+//- Blocks that differ on a language specific level
+block introText
+  | Content for #[b English].

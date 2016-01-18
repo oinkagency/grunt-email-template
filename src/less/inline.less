@@ -1,0 +1,84 @@
+@import "inline-default.less";
+
+// Text styles
+.txt{
+	font-family: @txtFont;
+	font-size: @txtSize;
+	line-height: @txtLineHeight;
+	text-align: left;
+	text-decoration: none;
+	color: @txtColor;
+	.generate-colors(@colorArray);
+	&.xs{
+		font-size: @txtSizeXs;
+		line-height: @txtLineHeightXs;
+	}
+	&.sm{
+		font-size: @txtSizeSm;
+		line-height: @txtLineHeightSm;
+	}
+	&.lg{
+		font-size: @txtSizeLg;
+		line-height: @txtLineHeightLg;
+	}
+	&.strike{
+		text-decoration: line-through;
+	}
+	&.uppercase{
+		text-transform: uppercase;
+	}
+	&.bold{
+		font-weight: bold;
+	}
+	&.center{
+		text-align: center;
+	}
+	&.justify{
+		text-align: justify;
+	}
+	sup{
+		font-size: @txtSize - 4;
+	}
+}
+
+// Header styles
+.h1{
+	font-family: @txtFont;
+	font-size: @h1Size;
+	line-height: @h1LineHeight;
+	text-align: left;
+	text-decoration: none;
+	color: @txtColor;
+	.generate-colors(@colorArray);
+	&.strike{
+		text-decoration: line-through;
+	}
+	&.uppercase{
+		text-transform: uppercase;
+	}
+	&.bold{
+		font-weight: bold;
+	}
+	sup{
+		font-size: @h1Size - 8;
+	}
+}
+
+.h2{
+	font-family: @txtFont;
+	font-size: @h2Size;
+	line-height: @h2LineHeight;
+	text-align: left;
+	text-decoration: none;
+	color: @txtColor;
+	.generate-colors(@colorArray);
+	&.uppercase{
+		text-transform: uppercase;
+	}
+	&.bold{
+		font-weight: bold;
+	}
+	sup{
+		font-size: @h2Size - 8;
+	}
+}

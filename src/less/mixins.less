@@ -1,0 +1,26 @@
+.generate-colors(@colors, @i: 1, @n: length(@colors)) when (@i =< @n){
+  @name: extract(@colors, @i);
+  &.@{name} {
+    color: @@name;
+  }
+  .generate-colors(@colors, (@i + 1));
+}
+
+.generate-bg-colors(@colors, @i: 1, @n: length(@colors)) when (@i =< @n){
+  @name: extract(@colors, @i);
+  @class: e(`'bg' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  &.@{class} {
+    background-color: @@name;
+  }
+  .generate-bg-colors(@colors, (@i + 1));
+}
+
+.generate-link-colors(@colors, @i: 1, @n: length(@colors)) when (@i =< @n){
+  @name: extract(@colors, @i);
+  @class: e(`'bg' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  &.@{class} a {
+    color: @@name;
+    text-decoration: none;
+  }
+  .generate-link-colors(@colors, (@i + 1));
+}

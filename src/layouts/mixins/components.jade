@@ -1,0 +1,37 @@
+//- Generic image
+mixin img(src, alt, inputWidth, inputHeight)
+  -var width = inputWidth || maxWidth;
+  -var height = inputHeight;
+  if attributes.responsive == false
+    -var responsive = false;
+  else
+    -var responsive = true;
+
+  //- Console warnings
+  -if(!src){ console.log(("Image without a valid source URL detected").red) };
+  -if(!alt){ console.log((src).cyan + (" has no alternate text").yellow) };
+  -if(!inputWidth){ console.log((src).cyan + (" has no specific width").yellow) };
+  -if(!responsive && !inputHeight){ console.log((src).cyan + (" requires a height because of its non-responsive character").red) };
+  -if(responsive && inputHeight){ console.log((src).cyan + (" does not use its height because of its responsive character").yellow) };
+
+  //- Complete path if src doesn't start with http://, https:// or img/
+  if !/^(http|https):\/\//.test(src) && !/^img\//.test(src)
+    -src = "img/" + src;
+
+  if responsive
+    img&attributes(attributes)(src!=src, width=width, style="max-width: #{width}px;", alt=alt, border="0").responsive
+  else
+    img&attributes(attributes)(src!=src, width=width, height=height, style="max-width: #{width}px;", alt=alt, border="0")
+
+//- Generic link
+mixin link(url)
+  -var linkTarget = attributes.linkTarget || "_blank"; //- Links usually link to a new window
+  -var underlined = attributes.underlined || false; //- Links are not underlined by default, this can be overwritten with a ccs class too
+
+  //- Console warning
+  -if(!url){ console.log(("Link without valid URL detected").yellow) };
+
+  if underlined
+    a&attributes(attributes)(href!=url, target=linkTarget, border="0", style="text-decoration: underline;"): block
+  else
+    a&attributes(attributes)(href!=url, target=linkTarget, border="0", style="text-decoration: none;"): block

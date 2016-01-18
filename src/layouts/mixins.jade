@@ -1,0 +1,69 @@
+include mixins/grid
+include mixins/components
+include mixins/template
+
+//- Disclaimers
+mixin disclaimer(lang, url)
+  -var url = url || deployUrl;
+
+  +row(columns=1, innerClass=attributes.class).padding.top.bottom
+    case lang
+      when "dutch"
+        | Nieuwsbrief&nbsp;niet&nbsp;leesbaar? 
+        +link(url)(underlined=true, class=attributes.class) Bekijk&nbsp;dan&nbsp;de&nbsp;online&nbsp;versie
+      when "french"
+        | Cet&nbsp;e-mail&nbsp;ne&nbsp;s'affiche&nbsp;pas&nbsp;correctement&nbsp;? 
+        +link(url)(underlined=true, class=attributes.class) Consultez&nbsp;la&nbsp;version&nbsp;en&nbsp;ligne
+      when "english"
+        | Newsletter&nbsp;not&nbsp;readable?&nbsp;View&nbsp;the&nbsp;online&nbsp;version 
+        +link(url)(underlined=true, class=attributes.class) View&nbsp;the&nbsp;online&nbsp;version
+      default
+        -console.log(("Invalid language selected for the disclaimer").yellow)
+
+
+//- Legal lines
+mixin legal(lang)
+  case lang
+    when "dutch"
+      case legal
+        when "corporate"
+          | Dit is de tekst bedrijfsjuridische voettekst met een 
+          +link(linkMain)(underlined=true, class=attributes.class) link
+          | .
+        when "standard"
+          | Dit is de standaard legal juridische voettekst met een 
+          +link(linkMain)(underlined=true, class=attributes.class) link
+          | .
+        default
+          -console.log(("Invalid legal lines selection").yellow)
+
+    when "french"
+      case legal
+        when "corporate"
+          | Ceci est le texte de pied de page juridique d'entreprise avec un 
+          +link(linkMain)(underlined=true, class=attributes.class) lien
+          | .
+        when "standard"
+          | Ceci est le texte de pied juridique standard avec un 
+          +link(linkMain)(underlined=true, class=attributes.class) lien
+          | .
+        default
+          -console.log(("Invalid legal lines selection").yellow)
+
+    when "english"
+      case legal
+        when "corporate"
+          | This is the corporate footer tekst with a 
+          +link(linkMain)(underlined=true, class=attributes.class) link
+          | .
+        when "standard"
+          | This is the standard footer tekst with a 
+          +link(linkMain)(underlined=true, class=attributes.class) link
+          | .
+        default
+          -console.log(("Invalid legal lines selection").yellow)
+
+    default
+      -console.log(("Invalid language selected for the legal lines").yellow)
+  |  
+  +randomTxt

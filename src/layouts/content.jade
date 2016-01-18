@@ -1,0 +1,28 @@
+extends base
+
+block globalVars
+  //-title = ""; //- Maximum of 70 characters
+  //-description = ""; //- Maximum of 160 characters
+
+  //- Social icons variables
+  -var socialSiteLink = "http://oink.agency";
+  -var socialSiteAlt = "Oïnk";
+  -var socialFacebookLink = "https://facebook.com/oinkcommunication";
+  -var socialFacebookAlt = "Facebook";
+  -var socialInstagramLink = "https://instagram.com/oinkagency";
+  -var socialInstagramAlt = "Instagram";
+  -var socialTwitterLink = "https://twitter.com/OINKbelgium";
+  -var socialTwitterAlt = "Twitter";
+
+//- Content of the email
+block content
+
+  //- Disclaimer
+  +disclaimer(language).txt.gray.xs.center
+
+  //- Examples, delete or comment this line when developing a mailing
+  include examples.jade
+
+  //- Legal
+  +row(columns=1, innerClass="padding top bottom txt gray xs center")
+    +legal(language).txt.gray.xs.center

@@ -1,0 +1,119 @@
+@import "variables.less";
+@import "mixins.less";
+
+// General components
+body {
+  Margin: 0; // Capitalize margin so Outlook.com won’t strip it out
+  padding: 0;
+  min-width: 100%;
+}
+table {
+  border-spacing: 0;
+  font-family: sans-serif;
+  color: @grayDark;
+  td {
+    padding: 0;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  table-layout: fixed;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  background-color: @bgColor;
+  .webkit {
+    max-width: @maxWidth;
+    .outer {
+      Margin: 0 auto;
+      width: 100%;  // Change to 98% to still have margin on mobile
+      max-width: @maxWidth;
+      background-color: @bgColor;
+    }
+  }
+}
+
+img {
+  display: block;
+  outline: none;
+  text-decoration: none;
+  border: none;
+  -ms-interpolation-mode: bicubic;
+  width: 100%;
+  height: auto;
+}
+
+sup {
+  vertical-align: super;
+  line-height: 0;
+}
+
+// Grid components
+table, td{
+  .generate-bg-colors(@colorArray);
+}
+
+.padding {
+  padding: @padding;
+  &.top{
+    padding: @padding 0 0 0;
+  }
+  &.bottom{
+    padding: 0 0 @padding 0;
+  }
+  &.top.bottom{
+    padding: @padding 0 @padding 0;
+  }
+  &.sides{
+    padding: 0 @padding;
+  }
+}
+
+.contents {
+  width: 100%;
+  font-size: @txtSize;
+}
+.row{
+  text-align: center;
+  font-size: 0;
+  .column {
+    font-size: @txtSize;
+    width: 100%;
+    display: inline-table;
+    vertical-align: top;
+  }
+  &.row2Column .column{
+    max-width: @maxWidth / 2;
+  }
+  &.row3Column .column{
+    max-width: @maxWidth / 3;
+  }
+  &.row4Column .column{
+    max-width: @maxWidth / 4;
+  }
+  //- Align columns left or right on gmail because progressive media query enhancements don't work on gmail
+  &.gmailLeft{
+    text-align: left;
+  }
+  &.gmailRight{
+    text-align: right;
+  }
+}
+
+// Preview aka Johnson Box
+#preview{
+  td{
+    text-align: center;
+    color: @bgColor;
+    font-size: 0px;
+    line-height: 0px;
+    mso-margin-top-alt: 0px;
+    span{
+      display: none !important;
+      color: @bgColor;
+      font-size: 0px;
+      line-height: 0px;
+      mso-margin-top-alt: 0px;
+    }
+  }
+}

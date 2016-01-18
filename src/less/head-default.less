@@ -1,0 +1,83 @@
+@import "variables.less";
+@import "mixins.less";
+
+// Force Outlook to provide a "view in browser" menu link.
+#outlook a {
+	padding:0;
+}
+
+// Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design.
+body {
+	width:100% !important;
+	-webkit-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
+	margin:0;
+	padding:0;
+}
+
+// Force Hotmail to display normal line spacing emails at full width
+*, .ExternalClass * {
+	line-height: 100%
+}
+.ExternalClass{
+	width:100%;
+	p, span, font, td, tr, table, tbody {
+		line-height: 100%
+	}
+}
+
+table {
+	border-collapse:collapse;
+	mso-table-lspace:0pt;
+	mso-table-rspace:0pt;
+	td {
+		border-collapse: collapse;
+		mso-line-height-rule: exactly;
+	}
+}
+
+// Fix for media queries yahoo client
+body[yahoo]{
+
+	// Phablet styles
+	@media @phablet {
+		.row2Column .column {
+			max-width: 50% !important;
+		}
+		.row3Column .column {
+			max-width: 33% !important;
+		}
+		.row4Column .column {
+			max-width: 25% !important;
+		}
+	}
+
+	// Phone styles
+	@media @phone{
+		.row2Column, .row3Column {
+			.column{
+				max-width: 100% !important;
+			}
+		}
+		.row4Column {
+			.column{
+				max-width: 50% !important;
+			}
+		}
+		.row2Column img.responsive {
+			max-width: 100% !important;
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+		.row3Column img.responsive {
+			max-width: 70% !important;
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+		.row4Column img.responsive {
+			max-width: 50% !important;
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+	}
+}
