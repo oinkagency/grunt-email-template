@@ -1,14 +1,12 @@
 #Grunt Email Workflow
 
 A template to create HTML mails that renders well on desktop, web and mobile clients like Gmail, Outlook, Apple Mail, Yahoo Mail, ... The Grunt workflow simplifies the process:
-1. Creates local server with auto reload
-2. Builds your HTML email from predefined JADE template
-3. Template structure allows you to easily create different versions of 1 email 
-4. Compiles LESS to CSS and inlines this CSS
-5. Minifies images and creates ZIP packages
-6. Creates starting point for a text version of your mailing
-
-*****
+  1. Creates local server with auto reload
+  2. Builds your HTML email from predefined JADE template
+  3. Template structure allows you to easily create different versions of 1 email 
+  4. Compiles LESS to CSS and inlines this CSS
+  5. Minifies images and creates ZIP packages
+  6. Creates starting point for a text version of your mailing
 
 ##Installation
 
@@ -21,8 +19,6 @@ Install Grunt Dependencies.
 ```
 npm install
 ```
-
-*****
 
 ##Commands
 
@@ -46,8 +42,6 @@ Use the grunt export command to build the EDM, export a ZIP and generate a TXT.
 grunt export
 ```
 
-*****
-
 ##Structure
 
 ###JADE/HTML
@@ -70,34 +64,45 @@ The CSS is compiled from the LESS files. All CSS in inline.less is inlined in th
 - **src/less/mixins.less**: This LESS file contains mixins used in other LESS files.
 - **src/less/variables.less**: This LESS file contains the default variables for LESS files.
 
-*****
-
 ##Variables
 
 ###layouts/variables.jade
 It is advised to override variables in your JADE files in the root and languages folder of the src folder.
 
 - **title**: The title used in the title tag and meta tags. A maximum of 70 characters advised.
+
 > Name of JADE in source
+
 - **description**: The description used in meta tags and preview text. A maximum of 160 characters advised.
+
 > Description of name of JADE in source
+
 - **deployUrl**: URL where EDM will be hosted.
+
 > URL OF HOSTED ONLINE VERSION EMAIL
+
 - **shareImg**: URL of the image to be shared on social media.
+
 > URL OF HOSTED IMAGE TO BE SHARED ON FB
+
 - **lang**: Defines the language of the disclaimer and legal lines.
+
 > english
+
 - **legal**: Defines the type of legal lines you want.
+
 > standard
+
 - **maxWidth**: The maximum width of the EDM.
+
 > 600
+
 - **defaultPadding**: The default padding.
+
 > 7
 
 ###less/variables.less
 All your less variables are defined in the file itself.
-
-*****
 
 ##Sources
 - [Envato article](http://webdesign.tutsplus.com/tutorials/creating-a-future-proof-responsive-email-without-media-queries--cms-23919): The template is based on the examples in this article
