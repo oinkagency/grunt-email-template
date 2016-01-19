@@ -73,7 +73,7 @@ It is advised to override variables in your JADE files in the root and languages
 - **description**: The description used in meta tags and preview text. A maximum of 160 characters advised.
 - **deployUrl**: URL where EDM will be hosted.
 - **shareImg**: URL of the image to be shared on social media.
-- **lang**: Defines the language of the disclaimer and legal lines.
+- **language**: Defines the language of the disclaimer and legal lines.
 - **legal**: Defines the type of legal lines you want.
 - **maxWidth**: The maximum width of the EDM.
 - **defaultPadding**: The default padding.
