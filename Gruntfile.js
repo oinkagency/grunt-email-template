@@ -8,11 +8,9 @@ module.exports = function (grunt) {
   var configs = require('load-grunt-configs')(grunt);
   grunt.initConfig(configs);
 
-  // Save the project name according to the root directory name
-  grunt.option('projectDir', process.cwd().split("/").pop());
-
-  // Grunt flags default
-  grunt.option('gmail', grunt.option('gmail') || false); // Default is false
+  // Global grunt variables
+  grunt.option('projectDir', process.cwd().split("/").pop()); // Save the project name according to the root directory name
+  grunt.option('gmail', grunt.option('gmail') || false); // Gmail flag, default is false
 
   // Lookup and save IP address
   var os = require('os');

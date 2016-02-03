@@ -16,7 +16,6 @@ html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb=
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     <!--<![endif]-->
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(name="author" content="Oïnk Agency")
     meta(name="description", content=description)
     meta(name="robots" content="noindex, follow")
 
@@ -26,13 +25,15 @@ html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb=
     meta(property="og:description", content=description)
     meta(property="og:type", content="website")
     meta(property="og:url", content=deployUrl)
-    meta(property="og:image", content=shareImg)
+    if shareImgFound
+      meta(property="og:image", content=shareImg)
 
     meta(name="twitter:card" content="photo")
     meta(name="twitter:title" content=title)
     meta(name="twitter:description" content=description)
     meta(name="twitter:url" content=deployUrl)
-    meta(name="twitter:image" content=shareImg)
+    if shareImgFound
+      meta(name="twitter:image" content=shareImg)
 
     link(href="css/inline.css", rel="stylesheet")
     if !gmail
@@ -62,3 +63,4 @@ html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb=
 //- Console warnings
 -if(title.length > 70){ console.log(("The title character length of ").yellow + String(title.length).cyan + (" is longer than the advised 70").yellow) };
 -if(description.length > 160){ console.log(("The description character length of ").yellow + String(description.length).cyan + (" is longer than the advised 160").yellow) };
+-if(!shareImgFound){ console.log(("There is no social sharing image present").yellow) };

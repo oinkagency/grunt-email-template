@@ -1,5 +1,6 @@
 //- Generic image
 mixin img(src, alt, inputWidth, inputHeight)
+  -var alt = alt || "";
   -var width = inputWidth || maxWidth;
   -var height = inputHeight;
   if attributes.responsive == false
