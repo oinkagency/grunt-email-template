@@ -1,6 +1,6 @@
 {
   "name": "grunt-email-workflow",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/oinkagency/grunt-email-template"
@@ -16,6 +16,7 @@
     "grunt-contrib-less": "^1.1.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-email-builder": "^3.0.1",
+    "grunt-ftp-deploy": "git+https://github.com/oinkagency/grunt-ftp-deploy.git",
     "grunt-notify": "^0.4.3",
     "grunt-open": "^0.2.3",
     "grunt-premailer": "^0.2.13",

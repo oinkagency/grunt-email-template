@@ -24,3 +24,51 @@
   }
   .generate-link-colors(@colors, (@i + 1));
 }
+
+.generate-borders(@colors, @i: 1, @n: length(@colors)) when (@i =< @n){
+  @name: extract(@colors, @i);
+  @classGeneral: e(`'border' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  @classTop: e(`'borderTop' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  @classRight: e(`'borderRight' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  @classBottom: e(`'borderBottom' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+  @classLeft: e(`'borderLeft' + '@{name}'.substr(0, 1).toUpperCase() + '@{name}'.substr(1)`);
+
+  .@{classGeneral} {
+    border: @borderWidth solid @@name;
+    &.dotted {
+      border: @borderWidth dotted @@name;
+    }
+  }
+  .@{classTop} {
+    border-top: @borderWidth solid @@name;
+    &.dotted {
+      border-top: @borderWidth dotted @@name;
+    }
+  }
+  .@{classRight} {
+    border-right: @borderWidth solid @@name;
+    &.dotted {
+      border-right: @borderWidth dotted @@name;
+    }
+  }
+  .@{classBottom} {
+    border-bottom: @borderWidth solid @@name;
+    &.dotted {
+      border-bottom: @borderWidth dotted @@name;
+    }
+  }
+  .@{classLeft} {
+    border-left: @borderWidth solid @@name;
+    &.dotted {
+      border-left: @borderWidth dotted @@name;
+    }
+  }
+  .generate-borders(@colors, (@i + 1));
+}
+
+.generate-columns-maxwidth(@n, @i: 1) when (@i =< @n) {
+  &.column@{i} {
+    max-width: percentage(1 / @n * @i) !important;
+  }
+  .generate-columns-maxwidth(@n, (@i + 1));
+}

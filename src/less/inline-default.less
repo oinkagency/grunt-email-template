@@ -53,21 +53,7 @@ table, td{
   .generate-bg-colors(@colorArray);
 }
 
-.padding {
-  padding: @padding;
-  &.top{
-    padding: @padding 0 0 0;
-  }
-  &.bottom{
-    padding: 0 0 @padding 0;
-  }
-  &.top.bottom{
-    padding: @padding 0 @padding 0;
-  }
-  &.sides{
-    padding: 0 @padding;
-  }
-}
+.generate-borders(@colorArray);
 
 .contents {
   width: 100%;
@@ -82,15 +68,7 @@ table, td{
     display: inline-table;
     vertical-align: top;
   }
-  &.row2Column .column{
-    max-width: @maxWidth / 2;
-  }
-  &.row3Column .column{
-    max-width: @maxWidth / 3;
-  }
-  &.row4Column .column{
-    max-width: @maxWidth / 4;
-  }
+
   //- Align columns left or right on gmail because progressive media query enhancements don't work on gmail
   &.gmailLeft{
     text-align: left;

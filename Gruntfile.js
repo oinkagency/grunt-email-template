@@ -1,16 +1,18 @@
-module.exports = function (grunt) {  
+module.exports = function (grunt) {
+
+  var path = require('path');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
   });
 
-  // Load grunt configurations automatically and define the configuration for all the tasks
-  var configs = require('load-grunt-configs')(grunt);
-  grunt.initConfig(configs);
-
   // Global grunt variables
   grunt.option('projectDir', process.cwd().split("/").pop()); // Save the project name according to the root directory name
   grunt.option('gmail', grunt.option('gmail') || false); // Gmail flag, default is false
+
+  // Load grunt configurations automatically and define the configuration for all the tasks
+  var configs = require('load-grunt-configs')(grunt);
+  grunt.initConfig(configs);  
 
   // Lookup and save IP address
   var os = require('os');
@@ -27,6 +29,12 @@ module.exports = function (grunt) {
       grunt.option('ipAddress', iface.address);
     });
   });
+
+  var userfolder = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+  if (!userfolder) {
+    throw new Error('Could not find a valid user home path.');
+  }
+  grunt.option('userfolder', userfolder)
 
   // Display project name and ip address
   grunt.log.subhead((" " + grunt.option("projectDir") + " (" + grunt.option("ipAddress") + ") ").green.inverse);
@@ -57,7 +65,9 @@ module.exports = function (grunt) {
   grunt.registerTask('export', [
     'build',
     'compress-and-create-txt',
-    'notify:export'
+    'ftp-deploy',
+    'notify:export',
+    'generate-preview-links'
   ]);
 
   // Create server task

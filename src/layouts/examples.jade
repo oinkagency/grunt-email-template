@@ -1,111 +1,143 @@
-//- Full width image aka header image
-+row(innerClass="padding h1 white uppercase").bgGreen
-  | Full width image
-+rowFullWidthImg("http://placehold.it/1200x250", altHeader)(link=linkHeader)
++row(padding=paddingMd).bgGreen
+  +column(innerClass="h1 white uppercase")
+    | Rows and columns
 
-//- One column row
-+row(innerClass="padding h1 white uppercase").bgGreen
-  | Single column row 
-  span.txt.sm.white.uppercase with&nbsp;vertical&nbsp;padding
++row(padding=[paddingSm, paddingMd]).bgGreenLight
+  +column(innerClass="h2 white uppercase")
+    | Single column row 
+    span.txt.sm.white.uppercase aka&nbsp;full&nbsp;width&nbsp;image
 
-+row(innerClass="padding top bottom txt")
-  block introText
++row(columns=[12]).bgGreenLight
+  +column()
+    +img("http://placehold.it/1200x100", altExample, maxWidth)
 
-//- Two column rows
-+row(innerClass="padding h1 white uppercase").bgGreen
-  | Two column rows
++row(padding=[paddingSm, paddingMd]).bgGreenLight
+  +column(innerClass="h2 white uppercase")
+    | Multiple column row 
+    span.txt.sm.white.uppercase with&nbsp;various&nbsp;column&nbsp;widths
 
-+row(innerClass="padding h2 white uppercase").bgGreenLight
-  | With padding
++row(columns=[3, 5, 4]).bgGreenLighter
+  +column()
+    +img("http://placehold.it/300x100/222", altExample, maxWidth / 12 * 3)
 
-+row(columns=2).bgYellow
-  +column(innerClass="padding")
-    +img("http://placehold.it/572x150", altExample, maxWidth / 2 - 2 * padding)
+  +column()
+    +img("http://placehold.it/500x100", altExample, maxWidth / 12 * 5)
 
-  +columnSeperator
+  +column()
+    +img("http://placehold.it/400x100/DDD", altExample, maxWidth / 12 * 4)
 
-  +column(innerClass="padding")
-    +img("http://placehold.it/572x150", altExample, maxWidth / 2 - 2 * padding)
++row(padding=[paddingSm, paddingMd]).bgGreenLight
+  +column(innerClass="h2 white uppercase")
+    | Multiple row columns 
+    span.txt.sm.white.uppercase in&nbsp;a&nbsp;multiple&nbsp;column&nbsp;row
 
-+row(innerClass="padding h2 white uppercase").bgGreenLight
-  | Only horizontal padding
++row(columns=[6, 6]).bgGreenLighter
+  +column(multipleRows=true).bgYellow
+    +colRow(padding=paddingSm)
+      +img("http://placehold.it/584x100", altExample, maxWidth / 2 - 2 * paddingSm)
+    +colRow(padding=paddingSm)
+      +img("http://placehold.it/584x100", altExample, maxWidth / 2 - 2 * paddingSm)
 
-+row(columns=2).bgYellow
-  +column(innerClass="padding sides")
-    +img("http://placehold.it/572x150", altExample, maxWidth / 2 - 2 * padding)
+  +column(multipleRows=true).bgGreenLighter
+    +colRow(padding=paddingSm)
+      +img("http://placehold.it/584x100", altExample, maxWidth / 2 - 2 * paddingSm)
+    +colRow(padding=paddingSm)
+      +img("http://placehold.it/584x100", altExample, maxWidth / 2 - 2 * paddingSm)
 
-  +columnSeperator
++row(padding=paddingMd).bgGreen
+  +column(innerClass="h1 white uppercase")
+    | Stacking
 
-  +column(innerClass="padding sides")
-    +img("http://placehold.it/572x150", altExample, maxWidth / 2 - 2 * padding)
++row(padding=[paddingSm, paddingMd]).bgGreenLight
+  +column(innerClass="h2 white uppercase")
+    | Inverse stacking 
+    span.txt.sm.white.uppercase same&nbsp;structure&nbsp;as&nbsp;multiple&nbsp;column&nbsp;row
 
-+row(innerClass="padding h2 white uppercase").bgGreenLight
-  | Without padding 
-  span.txt.sm.white.uppercase and&nbsp;with&nbsp;vertical&nbsp;middle&nbsp;align
++row(columns=[4, 5, 3], stacking="inverse").bgGreenLighter
+  +column()
+    +img("http://placehold.it/400x100/DDD", altExample, maxWidth / 12 * 4)
 
-+row(columns=2, verticalAlign="middle").bgYellow
-  +column
-    +img("http://placehold.it/600x120", altExample, maxWidth / 2)
+  +column()
+    +img("http://placehold.it/500x100", altExample, maxWidth / 12 * 5)  
 
-  +columnSeperator
+  +column()
+    +img("http://placehold.it/300x100/222", altExample, maxWidth / 12 * 3)
 
-  +column
-    +img("http://placehold.it/600x200", altExample, maxWidth / 2)
++row(padding=[paddingSm, paddingMd]).bgGreenLight
+  +column(innerClass="h2 white uppercase")
+    | Disable stacking 
+    span.txt.sm.white.uppercase and&nbsp;with&nbsp;vertical&nbsp;middle&nbsp;align
+
++row(columns=[2, 10], verticalAlign="middle", stacking="none").bgGreenLighter
+  +column(align="center", padding=paddingSm).bgYellow
+    +img("http://placehold.it/88x88", altExample, 44)
+
+  +column(padding=paddingSm, innerClass="txt")
+    +randomTxt(120)
+
+
++row(padding=paddingMd).bgGreen
+  +column(innerClass="h1 white uppercase")
+    | Padding
+
++row(columns=[4, 4, 4]).bgGreenLighter
+  +column(multipleRows=true, padding=paddingSm)
+    +colRow(innerClass="txt center", align=center, padding=[0, 0, paddingSm, 0])
+      | Small padding all around
+    +colRow(innerClass="bgYellow" padding=[paddingSm])
+      +img("http://placehold.it/368x100", altExample, maxWidth / 3 - 4 * paddingSm)
     
 
-//- Three column row
-+row(innerClass="padding h1 white uppercase").bgGreen
-  | Three column row 
-  span.txt.sm.white.uppercase with&nbsp;multiple&nbsp;row&nbsp;columns
+  +column(multipleRows=true, padding=paddingSm)
+    +colRow(innerClass="txt center", align=center, padding=[0, 0, paddingSm, 0])
+      | Medium vertical padding
+    +colRow(innerClass="bgYellow" padding=[paddingMd, 0])
+      +img("http://placehold.it/384x100", altExample, maxWidth / 3 - 2 * paddingSm)
+    
 
-+row(columns=3).bgGreenLight
-  +column(multipleRows=true, innerClass="padding")
-    +columnRow
-      +img("http://placehold.it/372x150", altExample, maxWidth / 3 - 2 * padding)
-    +columnRow(innerClass="padding top txt white sm center")
-      +randomTxt(100)
-
-  +columnSeperator
-
-  +column(multipleRows=true, innerClass="padding")
-    +columnRow
-      +img("http://placehold.it/372x150", altExample, maxWidth / 3 - 2 * padding)
-    +columnRow(innerClass="padding top txt white center")
-      +randomTxt(75)
-
-  +columnSeperator
-
-  +column(multipleRows=true, innerClass="padding")
-    +columnRow
-      +img("http://placehold.it/372x150", altExample, maxWidth / 3 - 2 * padding)
-    +columnRow(innerClass="padding top txt white lg center")
-      +randomTxt(50)
+  +column(multipleRows=true, padding=paddingSm)
+    +colRow(innerClass="txt center", align=center, padding=[0, 0, paddingSm, 0])
+      | Large horizontal padding
+    +colRow(innerClass="bgYellow" padding=[0, paddingLg])
+      +img("http://placehold.it/324x100", altExample, maxWidth / 3 - 2 * paddingSm - 2 * paddingLg)
 
 
-//- Four column row
-+row(innerClass="padding h1 white uppercase").bgGreen
-  | Four column row 
-  span.txt.sm.white.uppercase with&nbsp;non&#8209;responsive&nbsp;centered&nbsp;images
++row(padding=paddingMd).bgGreen
+  +column(innerClass="h1 white uppercase")
+    | Borders
 
-+row(columns=4)
-  +column(innerClass="padding top bottom", align="center")
++row(columns=[4, 4, 4]).bgGreenLighter
+  +column(padding=paddingMd)
+    +img("http://placehold.it/364x150", altExample, maxWidth / 3 - 2 * paddingMd - 2 * borderWidth).borderGrayDark.dotted
+
+  +column(padding=paddingMd)
+    +img("http://placehold.it/364x150", altExample, maxWidth / 3 - 2 * paddingMd - 2 * borderWidth).borderYellow
+
+  +column(padding=paddingMd)
+    +img("http://placehold.it/364x150", altExample, maxWidth / 3 - 2 * paddingMd - 2 * borderWidth).borderTopWhite.borderRightGreen.borderBottomYellow.borderLeftBlack
+
+
++row(padding=paddingMd).bgGreen
+  +column(innerClass="h1 white uppercase")
+    | Content examples 
+
++row(padding=paddingMd).bgGreenLight
+  +column(innerClass="txt black center", align="center")
+    block introText
+
++row(columns=[3, 3, 3, 3]).bgGreenLighter
+  +column(align="center", padding=[paddingMd, 0])
     +link(socialSiteLink)
       +img("social-site.jpg", socialSiteAlt, 44, 44)(responsive=false)
 
-  +columnSeperator
-
-  +column(innerClass="padding top", align="center")
+  +column(align="center", padding=[paddingMd, 0])
     +link(socialFacebookLink)
       +img("social-fb.jpg", socialFacebookAlt, 44, 44)(responsive=false)
 
-  +columnSeperator
-
-  +column(innerClass="padding top", align="center")
+  +column(align="center", padding=[paddingMd, 0])
     +link(socialTwitterLink)
       +img("social-tw.jpg", socialTwitterAlt, 44, 44)(responsive=false)
 
-  +columnSeperator
-
-  +column(innerClass="padding top", align="center")
+  +column(align="center", padding=[paddingMd, 0])
     +link(socialInstagramLink)
       +img("social-in.jpg", socialInstagramAlt, 44, 44)(responsive=false)

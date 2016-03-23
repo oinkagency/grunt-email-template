@@ -9,7 +9,6 @@ module.exports = function(grunt, options){
         var fileName = String(src).split('/').pop().replace('.jade','');
         var shareImgFound = grunt.file.exists('src/img/share.png') || grunt.file.exists('src/img/' + fileName + '/share.png');
 
-
         return {
           fileName: fileName,
           shareImgFound: shareImgFound,

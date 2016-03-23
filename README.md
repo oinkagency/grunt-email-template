@@ -1,10 +1,10 @@
 #Grunt Email Workflow
 
-A template to create responsive HTML mails that render well on desktop, web and mobile clients like Gmail, Outlook, Apple Mail, Yahoo Mail, ... The Grunt workflow simplifies the process:
+A template to create responsive HTML mails that render well on desktop, web and mobile clients like Gmail, Outlook, Apple Mail, Yahoo Mail,... The Grunt workflow simplifies the process:
   1. Creates local server with auto reload
   2. Builds your HTML email from predefined JADE template
   3. Template structure allows you to easily create different versions of 1 email 
-  4. Compiles LESS to CSS that is automatically inlined
+  4. Compiles LESS to CSS and inlines this CSS
   5. Minifies images and creates ZIP packages
   6. Creates starting point for a text version of your mailing
 
@@ -37,7 +37,7 @@ Use the grunt build command to only build the EDM.
 grunt build
 ```
 
-Use the grunt export command to build the EDM, export a ZIP and generate a TXT.
+Use the grunt export command to build the EDM, export a ZIP, generate a TXT and upload the EDM to your server.
 ```
 grunt export
 ```

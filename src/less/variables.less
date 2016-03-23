@@ -1,5 +1,4 @@
 // Colors
-
 @white:                     #ffffff;
 @grayLight:                 #e9e9e9;
 @gray:                      #a3a3a3;
@@ -12,11 +11,10 @@
 @yellow:                    #ffde00;
 
 @bgColor:                   @white;
-@colorArray:                white, gray, grayLight, grayDark, black, green, yellow, greenLight;
+@colorArray:                white, grayLight, gray, grayDark, black, green, greenLight, greenLighter, yellow;
 
 
 // Typography
-
 @txtFont:                   arial, sans-serif;
 @txtColor:                  @grayDark;
 
@@ -40,10 +38,12 @@
 
 
 // Grid components variables
-
 @maxWidth:                  600px;
+@mobileMaxWidth:            400px;
 @padding:                   7px;
+@borderWidth:               2px;
+
 
 // Media queries
-@phablet:                   ~"screen and (min-width: 401px) and (max-width: 600px)";
-@phone:                     ~"screen and (max-width: 400px)";
+@phablet:                   ~"screen and (min-width: "(@mobileMaxWidth + 1) ~") and (max-width: @{maxWidth})";
+@phone:                     ~"screen and (max-width: @{mobileMaxWidth})";

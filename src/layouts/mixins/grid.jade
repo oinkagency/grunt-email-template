@@ -1,73 +1,191 @@
 //- Row with 1 column as default
 mixin row
-  -columns = attributes.columns || 1;
+  //- Reset columnIndex
+  -columnIndex = undefined; 
+
+  //- Defaults
+  -columns = attributes.columns || [12];
   -verticalAlign = attributes.verticalAlign || "top";
-  -var innerClass = attributes.innerClass || "";
+  -rowPadding = [0, 0, 0, 0];
+  -stacking = attributes.stacking || "normal";
+
+  //- Set column direction
+  -var dir = "ltr";
+  if stacking === "inverse"
+    -dir = "rtl";
+
+  //- Create padding style
+  -var paddingStyle = "";
+  if attributes.padding
+    case attributes.padding.length
+      when undefined
+        -paddingStyle = "padding: " + attributes.padding + "px;"
+        -rowPadding = [attributes.padding, attributes.padding, attributes.padding, attributes.padding];
+      when 1
+        -paddingStyle = "padding: " + attributes.padding[0] + "px;"
+        -rowPadding = [attributes.padding[0], attributes.padding[0], attributes.padding[0], attributes.padding[0]];
+      when 2
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px;"
+        -rowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+      when 3
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[1] + "px;"
+        -rowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+      when 4
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[3] + "px;"
+        -rowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[3]];
 
   //- Console warnings
-  -if(columns > 1 && (innerClass)){ console.log(("InnerClass").cyan + (" attribute not used in row mixin with multiple columns").yellow) };
-  -if(!(verticalAlign == "top" || verticalAlign == "middle" || verticalAlign == "bottom")){ console.log(("VerticalAlign").cyan + (" attribute contains an invalid value").red) };
+  -if(columns.reduce(function(pv, cv) { return pv + cv; }, 0) != 12){ console.log(("[" + columns.toString() + "]").cyan + (" is not a valid columns array because the sum is not 12.").red) };
+  -if(attributes.align){ console.log(("The ").yellow + ("align").cyan + (" attribute is not used in a row mixin. You should add the ").yellow + ("align").cyan + (" attribute to its column(s) or column row(s).").yellow) };
+  -if(attributes.innerClass){ console.log(("The ").yellow + ("innerClass").cyan + (" attribute is not used in a row mixin. You should add the ").yellow + ("innerClass").cyan + (" attribute to its column(s) or column row(s).").yellow) };
+  -if(attributes.verticalAlign && columns.length === 1){ console.log(("VerticalAlign").cyan + (" attribute is not used in a single column row.").yellow) };
+  -if(attributes.stacking && columns.length === 1){ console.log(("Stacking").cyan + (" attribute is not used in a single column row.").yellow) };
+  -if(!(verticalAlign == "top" || verticalAlign == "middle" || verticalAlign == "bottom")){ console.log(("VerticalAlign").cyan + (" attribute contains an invalid value.").red) };
+  -if(!(stacking == "normal" || stacking == "inverse" || stacking == "none")){ console.log(("Stacking").cyan + (" attribute contains an invalid value.").red) };
 
-  //- Single column row and multiple column row have different structures
-  tr: td(class="row row#{columns}Column", class=attributes.class, id=attributes.id)
-    if columns == 1
-      table(width="100%", cellpadding="0", cellspacing="0", border="0").contents
-        +columnRow(innerClass=innerClass)
+  tr: td(class="row row-#{columns.join('-')}-column", class=attributes.class, id=attributes.id, style=paddingStyle, dir=dir)
+    block
+
+  //- Console warnings
+  -if(columnIndex >= columns.length){ console.log(("There are too many columns according to the row array ").red + ("[" + columns.toString() + "]").cyan + (".").red) };
+  -if(columnIndex < columns.length - 1 || columnIndex === undefined){ console.log(("There are not enough columns according to the row array ").red + ("[" + columns.toString() + "]").cyan + (".").red) };
+
+//- Column
+mixin column
+  //- Update columnIndex
+  if columnIndex === undefined
+    -columnIndex = 0
+  else
+    -columnIndex++;
+
+  //- Defaults
+  -var multipleRows = attributes.multipleRows || false;
+  -var align = attributes.align || "left";
+  -var innerClass = attributes.innerClass || "";
+  -var columnMaxWidth;
+  -var stackingClass;
+  -var dir = "ltr";
+  -var outerClass = attributes.outerClass || "";
+  -colPadding = [0, 0, 0, 0];
+
+  //- Console warnings
+  -if(multipleRows && attributes.innerClass){ console.log(("The ").yellow + ("innerClass").cyan + (" attribute is not used in a column mixin with multiple rows. You should add the ").yellow + ("innerClass").cyan + (" attribute to its column rows.").yellow) };
+  -if(multipleRows && attributes.align){ console.log(("The ").yellow + ("align").cyan + (" attribute is not used in a column mixin with multiple rows. You should add the ").yellow + ("align").cyan + (" attribute to its column rows.").yellow) };
+  -if(multipleRows && attributes.padding && columns.length === 1){ console.log(("The ").yellow + ("padding").cyan + (" attribute is not used in a column mixin with multiple rows in a single column row. You should add the ").yellow + ("padding").cyan + (" attribute to its column rows.").yellow + " " + columns) };
+  -if(attributes.verticalAlign){ console.log(("The ").yellow + ("verticalAlign").cyan + (" attribute should only be used on a row.").yellow) };
+
+  if columns.length === 1
+    //- Single column row
+    table(width="100%", cellpadding="0", cellspacing="0", border="0", class=outerClass).contents
+      if !multipleRows
+        +colRow(align=align, innerClass="#{innerClass} #{attributes.class}", id=attributes.id, padding=attributes.padding)
           block
-    else
+      else
+        block
+  else
+    if stacking === "normal"
+      -stackingClass = "stacking";
+      -columnMaxWidth = ((maxWidth - rowPadding[1] - rowPadding[3]) / 12 * columns[columnIndex]).toString() + "px";
+
+    else if stacking === "inverse"
+      -stackingClass = "inverseStacking";
+      -dir = "rtl";
+      -columnMaxWidth = ((maxWidth - rowPadding[1] - rowPadding[3]) / 12 * columns[columnIndex]).toString() + "px";
+      
+    else if stacking === "none"
+      -stackingClass = "noStacking";
+      //- All columns but last are rounded down
+      if columnIndex < columns.length - 1
+        -columnMaxWidth = (Math.floor(100 / 12 * columns[columnIndex])).toString() + "%";
+      else
+        -var percentTotal = 0;
+        -for (var i = 0; i < columns.length - 1; i++) { percentTotal = percentTotal + Math.floor(100 / 12 * columns[i]) };
+        -columnMaxWidth = (100 - percentTotal).toString() + "%";
+
+    //- Create padding style
+    -var paddingStyle = "";
+    if attributes.padding
+      case attributes.padding.length
+        when undefined
+          -paddingStyle = "padding: " + attributes.padding + "px;";
+          -colPadding = [attributes.padding, attributes.padding, attributes.padding, attributes.padding];
+        when 1
+          -paddingStyle = "padding: " + attributes.padding[0] + "px;";
+          -colPadding = [attributes.padding[0], attributes.padding[0], attributes.padding[0], attributes.padding[0]];
+        when 2
+          -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px;";
+          -colPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+        when 3
+          -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[1] + "px;";
+          -colPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+        when 4
+          -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[3] + "px;";
+          -colPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[3]];
+
+    //- Conditional HTML for the first column
+    if columnIndex === 0
       <!--[if (gte mso 9)|(IE)]>
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <table width="100%" dir="#{dir}" cellpadding="0" cellspacing="0" border="0">
       <tr>
-      <td width="#{maxWidth / columns}" valign="#{verticalAlign}">
+      <td width="#{(maxWidth - rowPadding[1] - rowPadding[3]) / 12 * columns[columnIndex]}" valign="#{verticalAlign}">
       <![endif]-->
-      block
+
+    //- Multiple column row
+    table(class="column column#{columns[columnIndex]} #{stackingClass}", style="vertical-align: #{verticalAlign}; max-width: #{columnMaxWidth};", cellpadding="0", cellspacing="0", border="0", dir="ltr")
+      tr: td(class=attributes.class, id=attributes.id, style=paddingStyle)
+        table(cellpadding="0", cellspacing="0", border="0").contents
+          if !multipleRows
+            +colRow(align=align, innerClass=innerClass)
+              block
+          else
+            block
+
+    if columnIndex < columns.length - 1
+      //- Conditional HTML between every column but the last
+      <!--[if (gte mso 9)|(IE)]>
+      </td>
+      <td width="#{(maxWidth - rowPadding[1] - rowPadding[3]) / 12 * columns[columnIndex + 1]}" valign="#{verticalAlign}">
+      <![endif]-->
+    else
+      //- Conditional HTML after the last column
       <!--[if (gte mso 9)|(IE)]>
       </td>
       </tr>
       </table>
       <![endif]-->
 
-//- Column seperator with 2 columns as default
-mixin columnSeperator
-  -if(!columns || columns < 1 || columns > 4){ console.log(("A ").red + ("columnSeperator").cyan + (" mixin does not have a valid amount of columns").red) };
-
-  <!--[if (gte mso 9)|(IE)]>
-  </td>
-  <td width="#{maxWidth / columns}" valign="#{verticalAlign}">
-  <![endif]-->
-
-mixin column
-  -var multipleRows = attributes.multipleRows || false;
-  -var align = attributes.align || "left";
-
-  table(cellpadding="0", cellspacing="0", border="0", class=attributes.class, id=attributes.id, style="vertical-align: #{verticalAlign};").column
-    tr: td(class=attributes.innerClass)
-      table(cellpadding="0", cellspacing="0", border="0").contents   
-          if !multipleRows
-            +columnRow(align=align)
-              block
-          else
-            block
-
 //- Row inside a column
-mixin columnRow
+mixin colRow
+  //- Defaults
   -var align = attributes.align || "left";
+  -var colRowPadding = [0, 0, 0, 0];
+
+  //- Create padding style
+  -var paddingStyle = "";
+  if attributes.padding
+    case attributes.padding.length
+      when undefined
+        -paddingStyle = "padding: " + attributes.padding + "px;";
+        -colRowPadding = [attributes.padding, attributes.padding, attributes.padding, attributes.padding];
+      when 1
+        -paddingStyle = "padding: " + attributes.padding[0] + "px;";
+        -colRowPadding = [attributes.padding[0], attributes.padding[0], attributes.padding[0], attributes.padding[0]];
+      when 2
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px;";
+        -colRowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+      when 3
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[1] + "px;";
+        -colRowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[1]];
+      when 4
+        -paddingStyle = "padding: " + attributes.padding[0] + "px " + attributes.padding[1] + "px " + attributes.padding[2] + "px " + attributes.padding[3] + "px;";
+        -colRowPadding = [attributes.padding[0], attributes.padding[1], attributes.padding[0], attributes.padding[3]];
+
+  //- Calculate the width content can have in this column(row)
+  -contentWidth = (maxWidth - rowPadding[1] - rowPadding[3]) / 12 * columns[columnIndex] - colPadding[1] - colPadding[3] - colRowPadding[1] - colRowPadding[3];
 
   //- Console warnings
-  -if(attributes.class){ console.log(("Class").cyan + (" attribute not used in columnRow mixin, use innerClass instead").yellow) };
-  -if(!(align == "left" || align == "center" || align == "right")){ console.log(("Align").cyan + (" attribute contains an invalid value").red) };
+  -if(attributes.class){ console.log(("Class").cyan + (" attribute not used in colRow mixin, use innerClass instead.").yellow) };
+  -if(!(align == "left" || align == "center" || align == "right")){ console.log(("Align").cyan + (" attribute contains the invalid value ").red + (align).cyan + (".").red) };
 
-
-  tr: td(align=align, class=attributes.innerClass, id=attributes.id)
+  tr: td(align=align, class=attributes.innerClass, id=attributes.id, style=paddingStyle)
     block
-
-//- Full width image row
-mixin rowFullWidthImg(src, alt)
-  -var url = attributes.link;
-
-  tr: td
-    if url
-      +link(url)
-        +img(src, alt, maxWidth)
-    else
-      +img(src, alt, maxWidth)

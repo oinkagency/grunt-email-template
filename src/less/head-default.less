@@ -36,46 +36,27 @@ table {
 	}
 }
 
-// Fix for media queries yahoo client
-body[yahoo]{
-
-	// Phablet styles
-	@media @phablet {
-		.row2Column .column {
-			max-width: 50% !important;
-		}
-		.row3Column .column {
-			max-width: 33% !important;
-		}
-		.row4Column .column {
-			max-width: 25% !important;
-		}
+// Phablet styles
+@media @phablet {
+	// Stacking column rows optimalisations
+	.column.stacking, .column.inverseStacking{
+		.generate-columns-maxwidth(12, 1);
 	}
+}
 
-	// Phone styles
-	@media @phone{
-		.row2Column, .row3Column {
-			.column{
-				max-width: 100% !important;
-			}
-		}
-		.row4Column {
-			.column{
-				max-width: 50% !important;
-			}
-		}
-		.row2Column img.responsive {
+// Phone styles
+@media @phone{
+	// Stacking column rows optimalisations
+	.column.stacking, .column.inverseStacking{
+		&.column12, &.column11, &.column10, &.column9, &.column8, &.column7, &.column6, &.column5, &.column4{
 			max-width: 100% !important;
-			margin-left: auto !important;
-			margin-right: auto !important;
 		}
-		.row3Column img.responsive {
-			max-width: 70% !important;
-			margin-left: auto !important;
-			margin-right: auto !important;
-		}
-		.row4Column img.responsive {
+		&.column3, &.column2, &.column1{
 			max-width: 50% !important;
+		}
+
+		img.responsive {
+			max-width: 100% !important;
 			margin-left: auto !important;
 			margin-right: auto !important;
 		}

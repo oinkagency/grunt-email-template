@@ -5,8 +5,13 @@ block globalVars
 block languageVars
 block contentVars
 
--var columns; // Global variable where grid mixins save the current amount of columns
--var verticalAlign; // // Global variable where grid mixins save the current state of vertical alignment
+-var columns; // Global variable where grid mixins save the current array of columns
+-var columnIndex; // Global variable where grid mixins save the current column
+-var contentWidth; // Global variable where grid mixins save the current column width
+-var rowPadding; // Global variable where grid mixins save the padding for the current row
+-var columnPadding; // Global variable where grid mixins save the padding for the current column
+-var verticalAlign; // Global variable where grid mixins save the vertical alignment of the current row
+-var stacking; // Global variable where grid mixins save the stack behaviour of the current row
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
@@ -42,11 +47,12 @@ html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb=
     style(type="text/css") table {border-collapse: collapse;}
     <![endif]-->
 
-  body(yahoo="fix")
+  body
 
     <!--[if !mso]><!-- -->
-    +row(columns=1)#preview
-      span #{description}
+    +row()#preview
+      +column()
+        span #{description}
     <!--<![endif]-->
 
     center.wrapper
@@ -61,6 +67,6 @@ html(xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb=
         <![endif]-->
 
 //- Console warnings
--if(title.length > 70){ console.log(("The title character length of ").yellow + String(title.length).cyan + (" is longer than the advised 70").yellow) };
--if(description.length > 160){ console.log(("The description character length of ").yellow + String(description.length).cyan + (" is longer than the advised 160").yellow) };
--if(!shareImgFound){ console.log(("There is no social sharing image present").yellow) };
+-if(title.length > 70){ console.log(("The title character length of ").yellow + String(title.length).cyan + (" is longer than the advised 70.").yellow) };
+-if(description.length > 160){ console.log(("The description character length of ").yellow + String(description.length).cyan + (" is longer than the advised 160.").yellow) };
+-if(!shareImgFound){ console.log(("There is no social sharing image present.").yellow) };
