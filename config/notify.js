@@ -10,7 +10,7 @@ module.exports = function(grunt, options){
     },
     export: {
       options: {
-        message: 'Export and upload complete'
+        message: 'Export complete'
       }
     },
     server: {

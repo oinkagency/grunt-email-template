@@ -65,8 +65,8 @@ module.exports = function (grunt) {
   grunt.registerTask('export', [
     'build',
     'compress-and-create-txt',
-    'ftp-deploy',
     'notify:export',
+    'ftp-deploy',
     'generate-preview-links'
   ]);
 

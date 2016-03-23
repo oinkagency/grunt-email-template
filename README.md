@@ -7,6 +7,7 @@ A template to create responsive HTML mails that render well on desktop, web and 
   4. Compiles LESS to CSS and inlines this CSS
   5. Minifies images and creates ZIP packages
   6. Creates starting point for a text version of your mailing
+  7. Uploads automaticly to your server
 
 ##Installation
 
